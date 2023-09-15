@@ -1,44 +1,90 @@
 #Exercicio 1.1
 def comprimento(lista):
-	pass
+	if not lista:
+		return 0
+	else:
+		return 1 + comprimento(lista[1:])
 
 #Exercicio 1.2
 def soma(lista):
-	pass
+	if not lista:
+		return 0
+	else:
+		return lista[0] + soma(lista[1:])
 
 #Exercicio 1.3
 def existe(lista, elem):
-	pass
+	if not lista :
+		return False
+	elif lista[0] == elem:
+		return True
+	return existe(lista[1:], elem)
 
 #Exercicio 1.4
 def concat(l1, l2):
-	pass
+	if not l2:
+		return l1
+	else:
+		l1.append(l2[0])
+
+	return concat(l1, l2[1:])
 
 #Exercicio 1.5
 def inverte(lista):
-	pass
+	if not lista:
+		return []
+	else:
+		return [lista[-1]] + inverte(lista[:-1])
 
 #Exercicio 1.6
 def capicua(lista):
-	pass
+	if len(lista) <= 1:
+		return True
+	elif lista[0] == lista[-1]:
+		return capicua(lista[1:-1])
+	else:
+		return False
 
 #Exercicio 1.7
 def concat_listas(lista):
-	pass
+	if not lista:
+		return []
+	else:
+		return lista[0] + concat_listas(lista[1:])
 
 #Exercicio 1.8
 def substitui(lista, original, novo):
-	pass
+	if not lista:
+		return []
+	else:
+		if lista[0] == original:
+			lista[0] = novo
+		return [lista[0]] + substitui(lista[1:], original, novo)
+	
 
 #Exercicio 1.9
 def fusao_ordenada(lista1, lista2):
-	pass
+	if not lista1:
+		return lista2
+	if not lista2:
+		return lista1
+	
+	if lista1[0] > lista2[0]:
+		return [lista2[0]] + fusao_ordenada(lista1, lista2[1:])
+	elif lista1[0] < lista2[0]:
+		return [lista1[0]] + fusao_ordenada(lista1[1:], lista2)
+	else:
+		return [lista1[0], lista2[0]] + fusao_ordenada(lista1[1:], lista2[1:])
 
 #Exercicio 1.10
 def lista_subconjuntos(lista):
-	pass
-
-
+	if len(lista) == 0:
+		return [[]]
+	else:
+		subElements = lista_subconjuntos(lista[1:])
+		return subElements + [[lista[0]] + subElement for subElement in subElements]
+	
+	
 #Exercicio 2.1
 def separar(lista):
 	pass

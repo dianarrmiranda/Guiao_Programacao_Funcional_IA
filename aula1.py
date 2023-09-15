@@ -84,14 +84,42 @@ def lista_subconjuntos(lista):
 		subElements = lista_subconjuntos(lista[1:])
 		return subElements + [[lista[0]] + subElement for subElement in subElements]
 	
-	
+
 #Exercicio 2.1
 def separar(lista):
-	pass
+    if len(lista) == 0:
+        return ([], [])
+    
+    subFirst, subSecond = separar(lista[1:])
+    
+    return ([lista[0][0]] + subFirst, [lista[0][1]] + subSecond)
 
 #Exercicio 2.2
 def remove_e_conta(lista, elem):
-	pass
+	if not lista:
+		return ([], 0)
+	
+	subFirst, subSecond = remove_e_conta(lista[1:], elem)
+
+	if elem == lista[0]:
+		return (subFirst, 1 + subSecond)
+	else:
+		return ([lista[0]] + subFirst, subSecond)
+	
+#Exercicio 2.3
+def num_ocorrencias(lista):
+	if not lista:
+		return []
+	firstElement = lista[0]
+	ocorrencias = lista.count(firstElement)
+	
+	rest = []
+	for element in lista:
+		if element != firstElement:
+			rest.append(element)
+	
+	return [(firstElement, ocorrencias)] + num_ocorrencias(rest)
+
 
 #Exercicio 3.1
 def cabeca(lista):

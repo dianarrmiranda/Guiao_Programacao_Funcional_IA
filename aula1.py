@@ -123,20 +123,166 @@ def num_ocorrencias(lista):
 
 #Exercicio 3.1
 def cabeca(lista):
-	pass
-
+	if(not lista):
+		return None
+	else:
+		return lista[0]
+	
 #Exercicio 3.2
 def cauda(lista):
-	pass
-
+	if(not lista):
+		return None
+	else:
+		return lista[1:]
+	
 #Exercicio 3.3
 def juntar(l1, l2):
-    pass
+	if(len(l1) != len(l2)):
+		return None
+	
+	if(not l1 and not l2):
+		return []
+	
+	return [(l1[0], l2[0])] + juntar(l1[1:], l2[1:])
+		 
 
 #Exercicio 3.4
 def menor(lista):
-	pass
+	if(not lista):
+		return None
+	
+	if(len(lista) == 1):
+		return lista[0]
+	
+	rest = menor(lista[1:])
+	if(lista[0] > rest):
+		return rest
+	else:
+		return lista[0]
+	
+#Exercicio 3.5
+def menor_resto(lista):
+	if(not lista):
+		return None
+	
+	if(len(lista) == 1):
+		return lista[0], []
+	
+	menor = min(lista)
+	listaSemMenor = []
 
+	for x in lista:
+		if x != menor:
+			listaSemMenor.append(x)
+	
+	menorRest, rest = menor_resto(listaSemMenor)
+
+	return menor, [menorRest] + rest
+	
 #Exercicio 3.6
 def max_min(lista):
-	pass
+	if(not lista):
+		return None
+	
+	if(len(lista) == 1):
+		return (lista[0], lista[0])
+	
+	rest = max_min(lista[1:])
+
+	if(lista[0] > rest[0]):
+		return (lista[0], rest[1])
+	elif(lista[0] < rest[1]):
+		return (rest[0], lista[0])
+	else: 
+		return (rest[0], rest[1])
+	
+#Exercicio 3.7
+def menor2_rest(lista):
+	if(not lista):
+		return None
+	if len(lista) == 1:
+		return lista[0], None, []  # Retorna o único elemento como o menor e None para o segundo menor, com uma lista vazia
+	
+	menor1 = min(lista)
+	listaSemMenor1 = [x for x in lista if x != menor1]
+	
+	menor2 = min(listaSemMenor1)
+	listaSemMenor2 = [x for x in listaSemMenor1 if x != menor2]
+	
+	menor1rest, menor2rest, rest = menor2_rest(listaSemMenor2)
+	
+	if menor2rest is None:
+		return menor1, menor2, [menor1rest] + rest
+	else:
+		return menor1, menor2, [menor1rest, menor2rest] + rest
+
+#Exercicio 3.8
+def media_mediana(lista):
+	if not lista:
+		return None
+	
+	if len(lista) == 1:
+		return (lista[0], lista[0])
+	
+	media_resto = media_mediana(lista[1:])
+
+	if(len(lista)%2 == 0):
+		return ((lista[0] + len(lista[1:]) * media_resto[0]) / len(lista), (lista[int(len(lista)/2)-1] + lista[int(len(lista)/2)])/2)
+	else:
+		return ((lista[0] + len(lista[1:]) * media_resto[0]) / len(lista), lista[int(len(lista)/2)] )
+	
+#Teste Ex 2.3
+print("Exercicio 2.3: ")
+lista = [5, 3, 9, 1, 7, 5, 5, 3, 3, 3, 3, 9]
+print(num_ocorrencias(lista))
+print()
+
+#Teste Ex 3.1
+print("Exercicio 3.1: ")
+lista = [5, 3, 9, 1, 7]
+print(cabeca(lista))
+lista = []
+print(cabeca(lista))
+print()
+
+#Teste Ex 3.2
+print("Exercicio 3.2: ")
+lista = [5, 3, 9, 1, 7]
+print(cauda(lista))
+lista = []
+print(cauda(lista))
+print()
+
+#Teste Ex 3.5
+print("Exercicio 3.5: ")
+lista = [5, 3, 9, 1, 7]
+print(menor_resto(lista))
+lista = []
+print(menor_resto(lista))
+print()
+
+#Teste Ex 3.6
+print("Exercicio 3.6: ")
+lista = [5, 3, 9, 1, 7]
+print(max_min(lista))
+lista = []
+print(max_min(lista))
+print()
+
+#Teste Ex 3.7
+print("Exercicio 3.7: ")
+lista = [5, 3, 9, 1, 7]
+print(menor2_rest(lista))
+lista = []
+print(menor2_rest(lista))
+print()
+
+#Teste Ex 3.8
+print("Exercicio 3.8: ")
+lista = [1, 2, 3, 4, 7, 19, 20]
+print(media_mediana(lista))
+lista = [1, 2, 3, 4, 5, 6]
+print(media_mediana(lista))
+lista = []
+print(media_mediana(lista))
+print()

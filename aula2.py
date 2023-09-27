@@ -1,3 +1,4 @@
+import functools
 import math
 
 #Exercicio 4.1
@@ -39,18 +40,19 @@ def menor_ordem(lista, f):
     
 #Exercicio 4.10
 def menor_e_resto_ordem(lista, f):
-    if (len(lista) == 1):
-        return lista[0], []
-    
-    if (f(lista[0], lista[1])):
-
-        return menor_e_resto_ordem(lista, f)
-    else:
-        menor, newList = menor_e_resto_ordem(lista[1:],f)
-        return (menor, [lista[0]] + newList)
+    return min(lista, key=lambda x: (not f(x, lista[0]), x)), [x for x in lista if x != min(lista, key=lambda x: (not f(x, lista[0]), x))]
 
     
 
 #Exercicio 5.2
 def ordenar_seleccao(lista, ordem):
-    pass
+    #if len(lista) <= 1:
+    #    return lista
+    #else:
+    #    pivot = lista[0]
+    #    less = [x for x in lista[1:] if ordem(x, pivot)]
+    #    greater = [x for x in lista[1:] if not ordem(x, pivot)]
+    #    return ordenar_seleccao(less, ordem) + [pivot] + ordenar_seleccao(greater, ordem)
+    
+    return lista if len(lista) <= 1 else ordenar_seleccao([x for x in lista[1:] if ordem(x, lista[0])], ordem) + [lista[0]] + ordenar_seleccao([x for x in lista[1:] if not ordem(x, lista[0])], ordem)
+    

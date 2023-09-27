@@ -88,11 +88,11 @@ def lista_subconjuntos(lista):
 #Exercicio 2.1
 def separar(lista):
     if len(lista) == 0:
-        return ([], [])
+        return [], []
     
     subFirst, subSecond = separar(lista[1:])
     
-    return ([lista[0][0]] + subFirst, [lista[0][1]] + subSecond)
+    return [lista[0][0]] + subFirst, [lista[0][1]] + subSecond
 
 #Exercicio 2.2
 def remove_e_conta(lista, elem):
